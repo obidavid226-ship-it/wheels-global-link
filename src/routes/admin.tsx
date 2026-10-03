@@ -1,25 +1,9 @@
 import { createFileRoute, Link, Outlet, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import {
-  Activity,
-  ArrowUpRight,
-  BarChart3,
-  Bell,
-  CarFront,
-  ChevronRight,
-  ClipboardList,
-  FileText,
-  LayoutDashboard,
-  Plus,
-  Search,
-  Settings,
-  ShieldCheck,
-  Users,
-} from "lucide-react";
+import { CarFront, ChevronRight, ClipboardList, Plus, ShieldCheck } from "lucide-react";
 import { AdminModuleShell } from "@/components/admin-shell";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { API_BASE_URL, adminList, apiRequest, checkApiReady } from "@/lib/vehicle-platform";
 
 export const Route = createFileRoute("/admin")({
@@ -97,11 +81,10 @@ function AdminOverview() {
           </p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" size="sm">
-            <FileText /> Export
-          </Button>
-          <Button variant="automotive" size="sm">
-            <Plus /> <span className="hidden sm:inline">Add vehicle</span>
+          <Button asChild variant="automotive" size="sm">
+            <Link to="/admin/vehicles">
+              <Plus /> <span className="hidden sm:inline">Add vehicle</span>
+            </Link>
           </Button>
         </div>
       </div>
@@ -120,36 +103,7 @@ function AdminOverview() {
           tone="orange"
         />
       </div>
-      <div className="mt-6 grid gap-6 xl:grid-cols-[1.6fr_1fr]">
-        <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
-          <div className="flex items-start justify-between">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-widest text-slate-400">
-                Performance overview
-              </p>
-              <h2 className="mt-1 text-xl font-extrabold">Inquiry conversion</h2>
-            </div>
-            <select className="rounded-lg border border-slate-200 bg-white px-2 py-2 text-xs">
-              <option>Last 30 days</option>
-              <option>Last 90 days</option>
-            </select>
-          </div>
-          <div className="mt-6 flex h-48 items-end gap-2 sm:gap-4">
-            <p className="w-full self-center text-sm text-slate-500">
-              Detailed trends are available in the Analytics module once live events are recorded.
-            </p>
-          </div>
-          <div className="mt-4 flex flex-wrap gap-4 text-xs text-slate-500">
-            <span>
-              <i className="mr-2 inline-block h-2 w-2 rounded-full bg-primary" />
-              Inquiries received
-            </span>
-            <span>
-              <i className="mr-2 inline-block h-2 w-2 rounded-full bg-emerald-400" />
-              Quotes sent
-            </span>
-          </div>
-        </section>
+      <div className="mt-6">
         <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
           <div className="flex items-center justify-between">
             <div>
@@ -172,8 +126,10 @@ function AdminOverview() {
               API.
             </p>
           </div>
-          <Button variant="outline" className="mt-6 w-full">
-            Manage inventory <ChevronRight />
+          <Button asChild variant="outline" className="mt-6 w-full">
+            <Link to="/admin/vehicles">
+              Manage inventory <ChevronRight />
+            </Link>
           </Button>
         </section>
       </div>
@@ -186,8 +142,10 @@ function AdminOverview() {
               </p>
               <h2 className="mt-1 text-xl font-extrabold">Recent inquiries</h2>
             </div>
-            <Button variant="ghost" size="sm">
-              View all <ChevronRight />
+            <Button asChild variant="ghost" size="sm">
+              <Link to="/admin/inquiries">
+                View all <ChevronRight />
+              </Link>
             </Button>
           </div>
           <div className="divide-y divide-slate-100">
@@ -228,23 +186,6 @@ function AdminOverview() {
           </div>
         </section>
       </div>
-      <section className="mt-6 rounded-2xl border border-dashed border-primary/30 bg-primary/[.04] p-5 sm:p-6">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex gap-3">
-            <Activity className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
-            <div>
-              <h2 className="font-extrabold">API-ready development view</h2>
-              <p className="mt-1 text-sm leading-6 text-slate-600">
-                The dashboard uses live summary and inquiry data from the protected PHP API. Sign in
-                with an authorized admin account to load the workspace.
-              </p>
-            </div>
-          </div>
-          <Button variant="outline" className="shrink-0">
-            API mapping guide <ArrowUpRight />
-          </Button>
-        </div>
-      </section>
     </AdminModuleShell>
   );
 }
@@ -257,13 +198,11 @@ function AdminLayout() {
 function Metric({
   label,
   value,
-  change,
   icon: Icon,
   tone,
 }: {
   label: string;
   value: number;
-  change?: string;
   icon: typeof CarFront;
   tone: string;
 }) {
@@ -281,11 +220,9 @@ function Metric({
         <div className={`grid h-10 w-10 place-items-center rounded-xl ${toneClass}`}>
           <Icon className="h-5 w-5" />
         </div>
-        {change && <span className="text-xs font-bold text-slate-400">Live</span>}
       </div>
       <p className="mt-3 text-xs font-semibold text-slate-500 sm:mt-5">{label}</p>
       <p className="mt-1 text-2xl font-extrabold tracking-tight sm:text-3xl">{value}</p>
-      <p className="mt-1 text-[11px] text-slate-400">vs last month</p>
     </div>
   );
 }

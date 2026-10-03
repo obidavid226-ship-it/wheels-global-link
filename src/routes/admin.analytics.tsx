@@ -11,9 +11,9 @@ export const Route = createFileRoute("/admin/analytics")({
 type EventRow = { day: string; event_name: string; count: number };
 type Top = { entity_type?: string; entity_id?: number; event_name: string; count: number };
 type Analytics = { events: EventRow[]; top_entities: Top[] };
-const demo: Analytics = { events: [], top_entities: [] };
+const emptyAnalytics: Analytics = { events: [], top_entities: [] };
 function AnalyticsAdminPage() {
-  const [data, setData] = useState(demo);
+  const [data, setData] = useState(emptyAnalytics);
   const [live, setLive] = useState(false);
   const [loading, setLoading] = useState(Boolean(API_BASE_URL));
   const load = () => {
@@ -101,7 +101,7 @@ function AnalyticsAdminPage() {
           </div>
           {!data.events.length && (
             <p className="mt-5 text-sm text-slate-500">
-              No analytics events recorded yet. Add the public POST /analytics call to page, save,
+              No analytics events recorded yet. Add the public POST /analytics call to page,
               compare, and inquiry actions.
             </p>
           )}

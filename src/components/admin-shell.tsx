@@ -2,7 +2,6 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import {
   Activity,
   BarChart3,
-  Bell,
   CarFront,
   ClipboardList,
   ExternalLink,
@@ -11,7 +10,7 @@ import {
   LogIn,
   LogOut,
   MoreHorizontal,
-  Search,
+  PackageCheck,
   Settings,
   Wifi,
   X,
@@ -24,6 +23,7 @@ const navItems: NavItem[] = [
   { label: "Overview", href: "/admin", icon: LayoutDashboard },
   { label: "Vehicles", href: "/admin/vehicles", icon: CarFront },
   { label: "Inquiries", href: "/admin/inquiries", icon: ClipboardList },
+  { label: "Orders", href: "/admin/orders", icon: PackageCheck },
   { label: "Content", href: "/admin/content", icon: FileText },
   { label: "Analytics", href: "/admin/analytics", icon: BarChart3 },
   { label: "Settings", href: "/admin/settings", icon: Settings },
@@ -268,10 +268,6 @@ function AdminWorkspace({
             <p className="truncate text-2xl font-extrabold leading-tight">{title}</p>
           </div>
           <div className="ml-auto flex items-center gap-3">
-            <div className="flex items-center gap-2 rounded-lg bg-slate-100 px-3 py-2">
-              <Search className="h-4 w-4 text-slate-400" />
-              <input placeholder="Search" className="w-40 bg-transparent text-sm outline-none" />
-            </div>
             <button
               type="button"
               onClick={onLogout}
@@ -284,10 +280,7 @@ function AdminWorkspace({
         </header>
         <main className="px-4 pb-32 pt-4 sm:px-6 lg:px-8 lg:pb-10 lg:pt-6">
           <div className="mx-auto max-w-[1440px]">
-            <div className="mb-6 hidden grid-cols-4 gap-3 lg:grid">
-              <Pulse label="Workspace status" value="Ready" icon={Activity} tone="green" />
-              <Pulse label="Today's activity" value="24 updates" icon={Bell} tone="blue" />
-              <Pulse label="Needs attention" value="8 items" icon={ClipboardList} tone="orange" />
+            <div className="mb-6 hidden lg:block">
               <Pulse
                 label="Data source"
                 value={API_BASE_URL ? "Live API" : "Unavailable"}
@@ -296,32 +289,6 @@ function AdminWorkspace({
               />
             </div>
             {children}
-            <section className="mt-8 hidden rounded-2xl border border-dashed border-primary/30 bg-primary/[.04] p-6 lg:block">
-              <p className="text-xs font-bold uppercase tracking-widest text-primary">
-                Operations playbook
-              </p>
-              <h2 className="mt-2 text-xl font-extrabold">Keep the next action visible</h2>
-              <div className="mt-4 grid gap-3 sm:grid-cols-3">
-                <div className="rounded-xl bg-white p-4">
-                  <p className="text-sm font-bold">Review new activity</p>
-                  <p className="mt-1 text-xs leading-5 text-slate-500">
-                    Check today's inquiries and status changes before leaving the workspace.
-                  </p>
-                </div>
-                <div className="rounded-xl bg-white p-4">
-                  <p className="text-sm font-bold">Confirm the source</p>
-                  <p className="mt-1 text-xs leading-5 text-slate-500">
-                    Demo inventory remains active until the PHP API health check succeeds.
-                  </p>
-                </div>
-                <div className="rounded-xl bg-white p-4">
-                  <p className="text-sm font-bold">Prepare the handoff</p>
-                  <p className="mt-1 text-xs leading-5 text-slate-500">
-                    Capture documents, customer notes, and the next milestone for your team.
-                  </p>
-                </div>
-              </div>
-            </section>
           </div>
         </main>
       </div>

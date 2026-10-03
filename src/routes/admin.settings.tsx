@@ -5,14 +5,7 @@ import { AdminModuleShell } from "@/components/admin-shell";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  API_BASE_URL,
-  API_HEALTH_PATH,
-  apiRequest,
-  checkApiReady,
-  isAdminApiEnabled,
-  setAdminApiEnabled,
-} from "@/lib/vehicle-platform";
+import { API_BASE_URL, API_HEALTH_PATH, apiRequest, checkApiReady } from "@/lib/vehicle-platform";
 
 export const Route = createFileRoute("/admin/settings")({
   head: () => ({ meta: [{ title: "Settings | AWA Admin" }] }),
@@ -33,14 +26,8 @@ function SettingsAdminPage() {
   const [live, setLive] = useState(false);
   const [ready, setReady] = useState(false);
   const [saving, setSaving] = useState(false);
-  const [apiOn, setApiOn] = useState(isAdminApiEnabled());
   const [message, setMessage] = useState("");
   const load = async () => {
-    if (!apiOn) {
-      setLive(false);
-      setReady(false);
-      return;
-    }
     try {
       const [result, health] = await Promise.all([
         apiRequest<{ ok: true; data: Setting[] }>("/admin/settings"),
@@ -62,16 +49,7 @@ function SettingsAdminPage() {
   };
   useEffect(() => {
     void load();
-  }, [apiOn]);
-  const toggleApi = (enabled: boolean) => {
-    setApiOn(enabled);
-    setAdminApiEnabled(enabled);
-    setMessage(
-      enabled
-        ? "API mode turned on. Refreshing live data…"
-        : "API mode turned off. Admin pages will use local preview data where available.",
-    );
-  };
+  }, []);
   const save = async () => {
     setSaving(true);
     setMessage("");
@@ -102,13 +80,13 @@ function SettingsAdminPage() {
             Control the connection and manage public organization details.
           </p>
           <p className="mt-1 text-xs font-semibold text-slate-400">
-            {live ? "Live API settings" : apiOn ? "API unavailable" : "API mode off"}
+            {live ? "Live API settings" : "API unavailable"}
           </p>
         </div>
         <div className="flex gap-2">
           <Badge variant={ready ? "default" : "secondary"}>
             <span className="mr-2 inline-block h-2 w-2 rounded-full bg-emerald-500" />
-            {ready ? "API healthy" : apiOn ? "API unavailable" : "API off"}
+            {ready ? "API healthy" : "API unavailable"}
           </Badge>
           <Button variant="outline" onClick={() => void load()}>
             <RefreshCw /> Refresh
@@ -129,17 +107,8 @@ function SettingsAdminPage() {
             <Header
               icon={ServerCog}
               title="API connection"
-              copy="Turn live API requests on or off without changing deployment configuration."
+              copy="Inspect the live API connection used by the admin workspace."
             />
-            <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-slate-200 px-4 py-3 text-sm font-bold">
-              <span>{apiOn ? "API on" : "API off"}</span>
-              <input
-                type="checkbox"
-                checked={apiOn}
-                onChange={(event) => toggleApi(event.target.checked)}
-                className="h-5 w-5 accent-primary"
-              />
-            </label>
           </div>
           <div className="mt-6 grid gap-4 md:grid-cols-3">
             <Field label="API base URL" value={API_BASE_URL} readOnly />
@@ -152,9 +121,7 @@ function SettingsAdminPage() {
             />
             {ready
               ? "The API is reachable and admin requests are enabled."
-              : apiOn
-                ? "The API is enabled but not currently reachable."
-                : "API calls are disabled. Turn API on when you want live reads and writes."}
+              : "The API is not currently reachable. Check the API deployment and credentials."}
           </div>
         </section>
         <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6 xl:col-span-2">
@@ -171,7 +138,7 @@ function SettingsAdminPage() {
             {field("default_language", "Default language")}
             {field("timezone", "Timezone")}
           </div>
-          <Button onClick={() => void save()} disabled={!apiOn || saving} className="mt-6">
+          <Button onClick={() => void save()} disabled={!ready || saving} className="mt-6">
             <Save /> {saving ? "Saving…" : "Save organization settings"}
           </Button>
         </section>
