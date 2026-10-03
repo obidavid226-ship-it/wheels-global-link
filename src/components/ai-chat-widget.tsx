@@ -5,7 +5,6 @@ import {
   ChevronRight,
   CircleHelp,
   GitCompareArrows,
-  Heart,
   MessageCircle,
   Send,
   Ship,
@@ -29,8 +28,8 @@ const topics: HelpTopic[] = [
     icon: Ship,
   },
   {
-    label: "Saved cars & compare",
-    prompt: "How do favorites and compare work?",
+    label: "Compare vehicles",
+    prompt: "How does vehicle comparison work?",
     icon: GitCompareArrows,
   },
   {
@@ -42,7 +41,7 @@ const topics: HelpTopic[] = [
 ];
 
 const welcome =
-  "I am the AWA Assistant. I can guide you through vehicle search, specifications, indicative pricing, sourcing, shipping, saved cars, comparison, spare-parts requests, and the information our team needs for a quote. I provide general guidance—not a final price, customs ruling, inspection report, or purchase confirmation.";
+  "I am the AWA Assistant. I can guide you through vehicle search, specifications, indicative pricing, sourcing, shipping, vehicle comparison, spare-parts requests, and the information our team needs for a quote. I provide general guidance—not a final price, customs ruling, inspection report, or purchase confirmation.";
 
 const carsActions: ChatAction[] = [
   { label: "Browse cars", href: "/cars" },
@@ -99,19 +98,11 @@ function replyFor(question: string): AssistantReply {
       actions: carsActions,
     };
   }
-  if (
-    q.includes("favorite") ||
-    q.includes("save") ||
-    q.includes("compare") ||
-    q.includes("shortlist")
-  ) {
+  if (q.includes("compare")) {
     return {
       content:
-        "Use the heart icon on a vehicle card or detail page to save a shortlist locally on your device. Open Saved to review those vehicles. Compare up to three vehicles side by side using year, condition, mileage, fuel, transmission, availability, price display, and sourcing notes. Saving or comparing does not reserve a vehicle, hold a price, or confirm availability; ask the team for a current written quote.",
-      actions: [
-        { label: "Saved vehicles", href: "/favorites" },
-        { label: "Compare vehicles", href: "/compare" },
-      ],
+        "Use the Compare button on vehicle cards to select up to three vehicles, then review their year, condition, mileage, fuel, transmission, availability, price display, and sourcing notes side by side. Comparison does not reserve a vehicle, hold a price, or confirm availability; ask the team for a current written quote.",
+      actions: [{ label: "Compare vehicles", href: "/compare" }],
     };
   }
   if (
@@ -182,7 +173,7 @@ function replyFor(question: string): AssistantReply {
   }
   return {
     content:
-      "I can help with vehicle search, filters, specifications, indicative prices, GHS/USD/AED/CNY display, sourcing, shipping, spare parts, inspection questions, saved cars, comparison, order tracking, and preparing a quote request. Try a quick-help topic or ask something specific such as ‘What information should I send for a Land Cruiser quote?’",
+      "I can help with vehicle search, filters, specifications, indicative prices, GHS/USD/AED/CNY display, sourcing, shipping, spare parts, inspection questions, comparison, order tracking, and preparing a quote request. Try a quick-help topic or ask something specific such as ‘What information should I send for a Land Cruiser quote?’",
     actions: carsActions,
   };
 }
@@ -277,12 +268,6 @@ export function AIChatWidget() {
                       {action.label} <ChevronRight className="h-3 w-3" />
                     </a>
                   ))}
-                  <a
-                    href="/favorites"
-                    className="inline-flex items-center gap-1 font-bold text-primary hover:underline"
-                  >
-                    <Heart className="h-3 w-3" /> Saved cars
-                  </a>
                 </div>
               </div>
             )}

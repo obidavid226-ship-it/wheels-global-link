@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { BarChart3, Eye, Heart, MessageCircle, RefreshCw, Users } from "lucide-react";
+import { BarChart3, Eye, MessageCircle, RefreshCw, Users } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { AdminModuleShell } from "@/components/admin-shell";
 import { Button } from "@/components/ui/button";
@@ -42,7 +42,6 @@ function AnalyticsAdminPage() {
   const cards = [
     { label: "Marketplace visits", key: "page_view", icon: Eye },
     { label: "Quote requests", key: "inquiry_created", icon: MessageCircle },
-    { label: "Saved vehicles", key: "favorite", icon: Heart },
     { label: "Returning visitors", key: "session_start", icon: Users },
   ];
   const max = Math.max(1, ...data.events.map((x) => Number(x.count)));
@@ -51,7 +50,7 @@ function AnalyticsAdminPage() {
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
         <div>
           <p className="text-sm text-slate-500">
-            Understand what customers discover, save, and request.
+            Understand what customers discover, compare, and request.
           </p>
           <p className="mt-1 text-xs font-semibold text-slate-400">
             {loading ? "Syncing…" : live ? "Live API data · last 30 days" : "API unavailable"}

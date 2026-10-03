@@ -1,6 +1,6 @@
 import { createFileRoute, Link, Outlet, useRouterState } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
-import { ArrowRight, Heart, Search, SlidersHorizontal } from "lucide-react";
+import { ArrowRight, Search, SlidersHorizontal } from "lucide-react";
 import { PageIntro, SectionHeading, VehicleGrid } from "@/components/marketplace";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -9,7 +9,6 @@ import {
   currencyRates,
   currencySymbols,
   formatMarketplacePrice,
-  getFavoriteSlugs,
   getVehicleCategory,
   publicVehicles,
   vehicleMatches,
@@ -38,7 +37,6 @@ function CarsPage() {
   const navigate = Route.useNavigate();
   const { q, brand, model, carType, condition, year, page } = Route.useSearch();
   const [currency, setCurrency] = useState("USD");
-  const [favorites, setFavorites] = useState<string[]>([]);
   const [catalogVehicles, setCatalogVehicles] = useState<typeof vehicles>([]);
   const [catalogState, setCatalogState] = useState<"loading" | "ready" | "error">("loading");
   const [catalogError, setCatalogError] = useState("");
@@ -46,7 +44,6 @@ function CarsPage() {
     select: (state) => state.location.pathname.startsWith("/cars/"),
   });
   useEffect(() => {
-    setFavorites(getFavoriteSlugs());
     const storedCurrency = localStorage.getItem("awa-currency") ?? "USD";
     setCurrency(storedCurrency in currencySymbols ? storedCurrency : "USD");
     let cancelled = false;
@@ -119,7 +116,7 @@ function CarsPage() {
       <PageIntro
         eyebrow="Vehicle marketplace"
         title="Find Your Next Vehicle"
-        copy="Search, shortlist and request a quote for vehicles sourced from trusted markets."
+        copy="Search, compare and request a quote for vehicles sourced from trusted markets."
         image={hero}
       />
       <section className="section-pad bg-secondary">
@@ -216,12 +213,6 @@ function CarsPage() {
               <span className="text-xs text-muted-foreground">
                 {shown.length} vehicle{shown.length === 1 ? "" : "s"} match your search
               </span>
-              <Link
-                to="/favorites"
-                className="ml-auto inline-flex items-center gap-2 text-sm font-bold uppercase text-primary"
-              >
-                <Heart className="h-4 w-4" /> Saved ({favorites.length})
-              </Link>
             </div>
           </div>
           <div className="mb-10 grid gap-5 border border-primary/20 bg-background p-6 md:grid-cols-[1fr_auto] md:items-center">

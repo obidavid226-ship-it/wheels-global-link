@@ -4,7 +4,6 @@ import {
   CheckCircle2,
   Factory,
   Fuel,
-  Heart,
   MessageCircle,
   ShieldCheck,
   Ship,
@@ -12,12 +11,7 @@ import {
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { getVehicleFallbackImage, vehicles } from "@/lib/inventory";
-import {
-  formatMarketplacePrice,
-  getFavoriteSlugs,
-  publicVehicleBySlug,
-  toggleFavorite,
-} from "@/lib/vehicle-platform";
+import { formatMarketplacePrice, publicVehicleBySlug } from "@/lib/vehicle-platform";
 
 export const Route = createFileRoute("/cars/$slug")({
   loader: async ({ params }) => {
@@ -83,7 +77,6 @@ function VehicleDetail() {
   const vehicle = Route.useLoaderData();
   const gallery = vehicle.images?.length ? vehicle.images : [vehicle.image];
   const [activeImage, setActiveImage] = useState(gallery[0]);
-  const [saved, setSaved] = useState(() => getFavoriteSlugs().includes(vehicle.slug));
   const [currency, setCurrency] = useState("USD");
   useEffect(() => {
     const storedCurrency = localStorage.getItem("awa-currency");
@@ -175,18 +168,6 @@ function VehicleDetail() {
               <span>{vehicle.availability}. Final details are confirmed during inquiry.</span>
             </div>
             <div className="mt-6 grid gap-3">
-              <Button
-                type="button"
-                variant="outline"
-                size="lg"
-                onClick={() => {
-                  const next = toggleFavorite(vehicle.slug);
-                  setSaved(next.includes(vehicle.slug));
-                }}
-              >
-                <Heart className={saved ? "fill-current" : ""} />{" "}
-                {saved ? "Saved Vehicle" : "Save Vehicle"}
-              </Button>
               <Button asChild size="lg">
                 <Link
                   to="/request-vehicle"

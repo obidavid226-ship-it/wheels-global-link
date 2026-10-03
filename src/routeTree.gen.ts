@@ -15,7 +15,6 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as CarsRouteImport } from './routes/cars'
 import { Route as CompareRouteImport } from './routes/compare'
 import { Route as ContactRouteImport } from './routes/contact'
-import { Route as FavoritesRouteImport } from './routes/favorites'
 import { Route as RequestVehicleRouteImport } from './routes/request-vehicle'
 import { Route as ShippingRouteImport } from './routes/shipping'
 import { Route as SparePartsRouteImport } from './routes/spare-parts'
@@ -66,11 +65,6 @@ const CompareRoute = CompareRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FavoritesRoute = FavoritesRouteImport.update({
-  id: '/favorites',
-  path: '/favorites',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RequestVehicleRoute = RequestVehicleRouteImport.update({
@@ -186,7 +180,6 @@ export interface FileRoutesByFullPath {
   '/cars': typeof CarsRouteWithChildren
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
-  '/favorites': typeof FavoritesRoute
   '/request-vehicle': typeof RequestVehicleRoute
   '/shipping': typeof ShippingRoute
   '/spare-parts': typeof SparePartsRouteWithChildren
@@ -216,7 +209,6 @@ export interface FileRoutesByTo {
   '/cars': typeof CarsRouteWithChildren
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
-  '/favorites': typeof FavoritesRoute
   '/request-vehicle': typeof RequestVehicleRoute
   '/shipping': typeof ShippingRoute
   '/spare-parts': typeof SparePartsRouteWithChildren
@@ -247,7 +239,6 @@ export interface FileRoutesById {
   '/cars': typeof CarsRouteWithChildren
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
-  '/favorites': typeof FavoritesRoute
   '/request-vehicle': typeof RequestVehicleRoute
   '/shipping': typeof ShippingRoute
   '/spare-parts': typeof SparePartsRouteWithChildren
@@ -279,7 +270,6 @@ export interface FileRouteTypes {
     | '/cars'
     | '/compare'
     | '/contact'
-    | '/favorites'
     | '/request-vehicle'
     | '/shipping'
     | '/spare-parts'
@@ -309,7 +299,6 @@ export interface FileRouteTypes {
     | '/cars'
     | '/compare'
     | '/contact'
-    | '/favorites'
     | '/request-vehicle'
     | '/shipping'
     | '/spare-parts'
@@ -339,7 +328,6 @@ export interface FileRouteTypes {
     | '/cars'
     | '/compare'
     | '/contact'
-    | '/favorites'
     | '/request-vehicle'
     | '/shipping'
     | '/spare-parts'
@@ -370,7 +358,6 @@ export interface RootRouteChildren {
   CarsRoute: typeof CarsRouteWithChildren
   CompareRoute: typeof CompareRoute
   ContactRoute: typeof ContactRoute
-  FavoritesRoute: typeof FavoritesRoute
   RequestVehicleRoute: typeof RequestVehicleRoute
   ShippingRoute: typeof ShippingRoute
   SparePartsRoute: typeof SparePartsRouteWithChildren
@@ -422,13 +409,6 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/favorites': {
-      id: '/favorites'
-      path: '/favorites'
-      fullPath: '/favorites'
-      preLoaderRoute: typeof FavoritesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/request-vehicle': {
@@ -672,7 +652,6 @@ const rootRouteChildren: RootRouteChildren = {
   CarsRoute: CarsRouteWithChildren,
   CompareRoute: CompareRoute,
   ContactRoute: ContactRoute,
-  FavoritesRoute: FavoritesRoute,
   RequestVehicleRoute: RequestVehicleRoute,
   ShippingRoute: ShippingRoute,
   SparePartsRoute: SparePartsRouteWithChildren,

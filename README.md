@@ -9,7 +9,7 @@ Premium automotive marketplace frontend for **AWA AUTO MALL**, a Guangzhou-based
 
 ## What is included
 
-The current application includes a responsive car marketplace, vehicle detail pages, search and filters, saved vehicles, comparison, sourcing requests, WhatsApp contact paths, order tracking, multi-currency display, shipping information, news, PWA installation support, an admin dashboard, analytics, and a guided AWA Assistant widget.
+The current application includes a responsive car marketplace, vehicle detail pages, search and filters, vehicle comparison, sourcing requests, WhatsApp contact paths, order tracking, multi-currency display, shipping information, news, PWA installation support, an admin dashboard, analytics, and a guided AWA Assistant widget.
 
 Spare-parts screens and backend support are retained for the planned follow-on phase. The launch scope should remain the car marketplace unless the business explicitly approves activating spare-parts inventory.
 
@@ -47,17 +47,17 @@ Never commit a real API key, database password, JWT secret, admin password, or `
 
 The frontend calls the separately deployed API through `VITE_API_BASE_URL`.
 
-| Method | Route                         | Purpose                                            |
-| ------ | ----------------------------- | -------------------------------------------------- |
-| GET    | `/health`                     | API health check                                   |
-| GET    | `/catalog`                    | Published vehicle/parts catalog                    |
-| GET    | `/catalog/{slug}`             | Published vehicle detail                           |
-| GET    | `/news`                       | Published news list                                |
-| GET    | `/news/{slug}`                | Published news article                             |
-| POST   | `/inquiries`                  | Vehicle and customer inquiry submission            |
-| POST   | `/analytics`                  | Public page, favorite, compare, and inquiry events |
-| GET    | `/orders/track/{orderNumber}` | Protected order tracking lookup                    |
-| POST   | `/admin/auth/login`           | Admin JWT login                                    |
+| Method | Route                         | Purpose                                  |
+| ------ | ----------------------------- | ---------------------------------------- |
+| GET    | `/health`                     | API health check                         |
+| GET    | `/catalog`                    | Published vehicle/parts catalog          |
+| GET    | `/catalog/{slug}`             | Published vehicle detail                 |
+| GET    | `/news`                       | Published news list                      |
+| GET    | `/news/{slug}`                | Published news article                   |
+| POST   | `/inquiries`                  | Vehicle and customer inquiry submission  |
+| POST   | `/analytics`                  | Public page, compare, and inquiry events |
+| GET    | `/orders/track/{orderNumber}` | Protected order tracking lookup          |
+| POST   | `/admin/auth/login`           | Admin JWT login                          |
 
 The request-vehicle form uses `POST /inquiries` with `type: "vehicle_request"`. Keep this contract synchronized with the separate backend.
 
@@ -67,7 +67,6 @@ The request-vehicle form uses `POST /inquiries` with `type: "vehicle_request"`. 
 - `/cars` — vehicle marketplace
 - `/cars/{slug}` — vehicle detail
 - `/compare` — side-by-side vehicle comparison
-- `/favorites` — saved vehicles
 - `/request-vehicle` — sourcing request form
 - `/shipping` — shipping and export information
 - `/track-order` — order tracking

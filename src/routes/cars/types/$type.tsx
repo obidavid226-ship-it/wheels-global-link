@@ -109,7 +109,7 @@ function TypeDetailPage() {
           <SectionHeading
             eyebrow="Available in this category"
             title={`Explore ${data.content.title}`}
-            copy="Review the current selection, compare your shortlist, and request the vehicle that fits your brief."
+            copy="Review the current selection, compare vehicles, and request the vehicle that fits your brief."
           />
           <VehicleGrid items={data.vehicles} />
           <Link

@@ -96,7 +96,7 @@ export function PwaRuntime() {
                 ready to go.
               </h2>
               <p className="mt-4 max-w-lg text-sm leading-6 text-slate-500">
-                Install the AWA app for faster access to vehicles, shortlists, inquiries, and
+                Install the AWA app for faster access to vehicles, comparisons, inquiries, and
                 sourcing updates.
               </p>
             </div>

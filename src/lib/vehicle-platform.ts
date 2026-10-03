@@ -420,34 +420,6 @@ export async function adminUploadFiles(files: File[], folder: string, entityId?:
   };
 }
 
-const FAVORITES_KEY = "awa-favorite-vehicles";
-
-export function getFavoriteSlugs(): string[] {
-  if (typeof window === "undefined") return [];
-  try {
-    const value = JSON.parse(window.localStorage.getItem(FAVORITES_KEY) ?? "[]");
-    return Array.isArray(value)
-      ? value.filter((item): item is string => typeof item === "string")
-      : [];
-  } catch {
-    return [];
-  }
-}
-
-export function setFavoriteSlugs(slugs: string[]) {
-  if (typeof window !== "undefined")
-    window.localStorage.setItem(FAVORITES_KEY, JSON.stringify(slugs));
-}
-
-export function toggleFavorite(slug: string): string[] {
-  const current = getFavoriteSlugs();
-  const next = current.includes(slug)
-    ? current.filter((item) => item !== slug)
-    : [...current, slug];
-  setFavoriteSlugs(next);
-  return next;
-}
-
 export const currencyRates: Record<string, number> = {
   USD: 1,
   GHS: 12.4,

@@ -48,7 +48,7 @@ function ComparePage() {
       <PageIntro
         eyebrow="Vehicle comparison"
         title="Choose With More Confidence"
-        copy="Compare the details that matter, understand what still needs confirmation, and request one clear quote for your shortlist."
+        copy="Compare the details that matter, understand what still needs confirmation, and request one clear quote for your selected vehicles."
         image={image}
       />
       <section className="section-pad">
@@ -66,7 +66,7 @@ function ComparePage() {
               <div className="mb-8 flex flex-wrap items-end justify-between gap-5">
                 <SectionHeading
                   eyebrow={`${selected.length} of 3 vehicles selected`}
-                  title="Your Shortlist, Side By Side"
+                  title="Your Vehicles, Side By Side"
                   copy="Use this view to compare specifications, ask better questions, and decide which vehicles deserve a quote."
                 />
                 <Button asChild size="lg" variant="automotive">
@@ -152,7 +152,7 @@ function ComparePage() {
                       Ready to narrow it down?
                     </p>
                     <h2 className="mt-2 text-3xl font-extrabold uppercase">
-                      Request One Quote For Your Shortlist
+                      Request One Quote For Your Selected Vehicles
                     </h2>
                     <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
                       AWA can confirm availability, inspection details, final pricing, shipping
@@ -223,7 +223,7 @@ function EmptyCompare() {
         <SectionHeading
           eyebrow="Choose two or three cars"
           title="Build Your Comparison"
-          copy="Add vehicles from the Cars page using the Compare button. Your shortlist will appear here with grouped specifications, sourcing notes, and quote actions."
+          copy="Add vehicles from the Cars page using the Compare button. Your selected vehicles will appear here with grouped specifications, sourcing notes, and quote actions."
         />
         <div className="flex flex-wrap justify-center gap-3">
           <Button asChild size="lg" variant="automotive">
@@ -232,12 +232,12 @@ function EmptyCompare() {
             </Link>
           </Button>
           <Button asChild size="lg" variant="outline">
-            <Link to="/favorites">Open saved vehicles</Link>
+            <Link to="/cars">Choose vehicles to compare</Link>
           </Button>
         </div>
       </div>
       <section className="mt-12">
-        <SectionHeading eyebrow="Why compare?" title="Make A More Informed Shortlist" />
+        <SectionHeading eyebrow="Why compare?" title="Make A More Informed Choice" />
         <div className="grid gap-5 md:grid-cols-3">
           {[
             [
